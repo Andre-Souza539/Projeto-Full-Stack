@@ -3,15 +3,19 @@ import 'dotenv/config';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';   
+import morgan from 'morgan';
 
-app.use(bodyParser.urlencoded({extended: true}));
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express()
 const port = process.env.PORT
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(morgan("common"));
+
 
 app.get("/", (req,res)=> {
+    console.log(req.body);
     res.sendFile(__dirname + "/public/view/index.html");
 });
 
