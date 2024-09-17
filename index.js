@@ -35,6 +35,15 @@ app.get("/login", (req,res) => {
     res.sendfile(__dirname + "/public/view/login.html");
 })
 
+
+app.get("/check", (req,res)=> {
+    if(autenticado){
+        res.sendFile(__dirname + "/public/view/logado.html");
+    } else { 
+        res.sendFile(__dirname + "/public/view/login.html");
+    }
+})
+
 app.post("/check", (req,res)=> {
     if(autenticado){
         res.sendFile(__dirname + "/public/view/logado.html");
