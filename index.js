@@ -57,7 +57,6 @@ app.get("/deslogar", (req,res)=> {
     res.sendFile(__dirname + "/public/view/login.html")
 })
 
-
 app.get("/contact", (req,res)=>{
     res.send("<p>Página de contato</p><h1>Entre em Contato</h1><p>+55 (11) 99999-9999</p>")
 });
