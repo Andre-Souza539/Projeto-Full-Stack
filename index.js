@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';   
 import morgan from 'morgan';
 
-
 const app = express()
 const port = process.env.PORT
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -26,27 +25,44 @@ function autenticador(req, res, next){
 
 app.use(autenticador);
 
+app.get("/day", (req, res) => {
+    const d = new Date();
+    let day = d.getDay();
+    if(day > 0 && day < 6){
+        var type = "Weekday"  
+        var advice = "Work Hard";    
+    } else { 
+        var type = "Weekend"  
+        var advice = "Have Fun";    
+    }
+
+    res.render("index.ejs", {
+        dayType: type,
+        advice: advice,
+  });
+});
+
 app.get("/", (req,res)=> {
     console.log(req.body);
-    res.sendFile(__dirname + "/public/view/index.html");
+    res.sendFile(__dirname + "/views/index.html");
 });
 
 app.get("/login", (req,res) => {
-    res.sendfile(__dirname + "/public/view/login.html");
+    res.sendfile(__dirname + "/views/login.html");
 })
 
 
 app.get("/check", (req,res)=> {
     if(autenticado){
-        res.sendFile(__dirname + "/public/view/logado.html");
+        res.sendFile(__dirname + "/views/logado.html");
     } else { 
-        res.sendFile(__dirname + "/public/view/login.html");
+        res.sendFile(__dirname + "/views/login.html");
     }
 })
 
 app.post("/check", (req,res)=> {
     if(autenticado){
-        res.sendFile(__dirname + "/public/view/logado.html");
+        res.sendFile(__dirname + "/views/logado.html");
     } else { 
         res.send("Deixa de ser tabacudo o usuário e senha é admin")
     }
@@ -54,7 +70,7 @@ app.post("/check", (req,res)=> {
 
 app.get("/deslogar", (req,res)=> {
     autenticado = false;
-    res.sendFile(__dirname + "/public/view/login.html")
+    res.sendFile(__dirname + "/views/login.html")
 })
 
 app.get("/contact", (req,res)=>{
