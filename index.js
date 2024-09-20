@@ -42,6 +42,20 @@ app.get("/day", (req, res) => {
   });
 });
 
+app.get("/ejs_test", (req,res)=>{
+
+    var time = new Date();
+    const data = { 
+        title: "EJS TAGS",
+        hours: time.getHours(),
+        minutes: time.getMinutes(),
+        seconds: time.getSeconds(),
+        items: ["Apple", "Samsung", "Xiaomi"],
+        htmlContent: "<em> This is some sample text</em>",
+    };
+    res.render("ejs-test.ejs", data);
+});
+
 app.get("/", (req,res)=> {
     console.log(req.body);
     res.sendFile(__dirname + "/views/index.html");
